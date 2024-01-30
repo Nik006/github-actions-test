@@ -18,9 +18,9 @@ jobs:
       - name: Get Cluster OCID
         uses: oracle-actions/run-oci-cli-command@v1.1.1 
         id: find-cluster-ocid
-        with:
+        with: 
           command: 'ce cluster list --compartment-id ${{ secrets.OCI_COMPARTMENT_ID }}'
-          query: "data[?name=='${{ secrets.OKE_CLUSTER_NAME }}'].id
+          query: "data[?name=='${{ secrets.OKE_CLUSTER_NAME }}'].id"
           
       - name: Save Cluster OCID
         run: |
@@ -33,4 +33,3 @@ jobs:
 
       - name: Run Kubectl
         run: kubectl get nodes -A    
-
