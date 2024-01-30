@@ -27,7 +27,7 @@ jobs:
         run: |
           echo "OKE_CLUSTER_OCID='${{ steps.find-cluster-ocid.outputs.raw_output }}'" >> "$GITHUB_ENV"
           echo ${{ steps.find-cluster-ocid.outputs.raw_output }}
-          echo ${{ env.OKE_CLUSTER_OCID }}
+          echo ${{ OKE_CLUSTER_OCID }}
 
       - name: Configure Kubectl
         uses: oracle-actions/configure-kubectl-oke@v1.3.2
