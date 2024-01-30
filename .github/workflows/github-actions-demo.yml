@@ -21,6 +21,7 @@ jobs:
         with: 
           command: 'ce cluster list --compartment-id ${{ secrets.OCI_COMPARTMENT_ID }}'
           query: "data[?name=='github-actions-oke'].id"
+          silent: false
 
       - name: Save Cluster OCID
         run: |
