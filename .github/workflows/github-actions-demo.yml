@@ -21,7 +21,7 @@ jobs:
         with:
           command: 'ce cluster list --compartment-id ${{ secrets.OCI_COMPARTMENT_ID }}'
           query: "data[?name=='${{ secrets.OKE_CLUSTER_NAME }}'].id
-              
+          
       - name: Save Cluster OCID
         run: |
           echo "OKE_CLUSTER_OCID=${{ steps.find-cluster-ocid.outputs.output }} | jq ." >> "$GITHUB_ENV"
