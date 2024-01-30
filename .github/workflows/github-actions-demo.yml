@@ -21,6 +21,7 @@ jobs:
           CLUSTER_NAME="${{ secrets.OKE_CLUSTER_NAME }}"
           OCID=$(oci ce cluster list --compartment-id ${{ secrets.OCI_COMPARTMENT_ID }} --query "data[?name=='$CLUSTER_NAME'].id | [0]" --raw-output)
           echo "::set-env name=OKE_CLUSTER_OCID::$OCID"
+        uses: oracle-actions/run-oci-cli-command@v1.1.1  
 
       - name: Configure Kubectl
         uses: Nik006/configure-kubectl-oke@v1.3.2
