@@ -11,7 +11,6 @@ jobs:
       OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
       OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
       OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
-      CLUSTER_NAME: ${{ secrets.OKE_CLUSTER_NAME }}"
 
     steps:
 
@@ -21,13 +20,6 @@ jobs:
         with: 
           command: 'ce cluster list --compartment-id ${{ secrets.OCI_COMPARTMENT_ID }}'
           query: "data[?name=='${{ secrets.OKE_CLUSTER_NAME }}'].id"
-          silent: false
-
-      # - name: Save Cluster OCID
-      #   run: |
-      #     echo "OKE_CLUSTER_OCID=${{ steps.find-cluster-ocid.outputs.raw_output }}" >> "$GITHUB_ENV"
-      #     echo ${{ steps.find-cluster-ocid.outputs.raw_output }}
-      #     echo "$OKE_CLUSTER_OCID"
 
       - name: Configure Kubectl
         uses: oracle-actions/configure-kubectl-oke@v1.3.2
