@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Configure Kubectl
-        uses: oracle-actions/configure-kubectl-oke@v1.3.2
+        uses: Nik006/configure-kubectl-oke
         id: test-configure-kubectl-oke-action
         with:
           cluster: ocid1.cluster.oc1.iad.aaaaaaaatcre4eij6yz47n4it5hcffz4roz6kkhq3mqch4lseccwgkjei53a
