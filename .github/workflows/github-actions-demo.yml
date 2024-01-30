@@ -31,7 +31,7 @@ jobs:
       - name: Configure Kubectl
         uses: oracle-actions/configure-kubectl-oke@v1.3.2
         with:
-          cluster: ${{ env.OKE_CLUSTER_OCID }}
+          cluster: $OKE_CLUSTER_OCID
 
       - name: Run Kubectl
         run: kubectl get nodes -A    
