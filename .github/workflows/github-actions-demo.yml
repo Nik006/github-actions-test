@@ -25,7 +25,7 @@ jobs:
       - name: Save Cluster OCID
         run: |
           echo "OKE_CLUSTER_OCID=${{ steps.find-cluster-ocid.outputs.output }} | jq ." >> "$GITHUB_ENV"
-          echo ${{ env.OKE_CLUSTER_OCID}}
+          echo ${env.OKE_CLUSTER_OCID}
 
       - name: Configure Kubectl
         uses: Nik006/configure-kubectl-oke@v1.3.2
