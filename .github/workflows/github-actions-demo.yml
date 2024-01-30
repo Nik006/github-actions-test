@@ -20,11 +20,11 @@ jobs:
         id: find-cluster-ocid
         with: 
           command: 'ce cluster list --compartment-id ${{ secrets.OCI_COMPARTMENT_ID }}'
-          query: "data[?name=='${{ secrets.OKE_CLUSTER_NAME }}'].id | [0] --raw-output)"
+          query: "data[?name=='${{ secrets.OKE_CLUSTER_NAME }}'].id"
 
       - name: Save Cluster OCID
         run: |
-          echo "OKE_CLUSTER_OCID=${{ steps.find-cluster-ocid.outputs.output }} | jq ." >> "$GITHUB_ENV"
+          echo "OKE_CLUSTER_OCID=${{ steps.find-cluster-ocid.outputs.raw_output }} | jq ." >> "$GITHUB_ENV"
           echo ${{ env.OKE_CLUSTER_OCID }}
 
       - name: Configure Kubectl
