@@ -2,23 +2,24 @@ name: github-oke-kubectl
 run-name: Testing kubectl run for oke on github
 on: [push]
 jobs:
-install-kubectl:
-  runs-on: ubuntu-latest
-  name: Install Kubectl for OKE
-  env:
-    OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
-    OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
-    OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
-    OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
-    OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
+  jobs:
+  install-kubectl:
+    runs-on: ubuntu-latest
+    name: Install Kubectl for OKE
+    env:
+      OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
+      OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
+      OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
+      OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
+      OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
 
-  steps:
-    - name: Configure Kubectl
-      uses: oracle-actions/configure-kubectl-oke@v1.3.2
-      id: test-configure-kubectl-oke-action
-      with:
-        cluster: ocid1.cluster.oc1.iad.aaaaaaaatcre4eij6yz47n4it5hcffz4roz6kkhq3mqch4lseccwgkjei53a
+    steps:
+      - name: Configure Kubectl
+        uses: oracle-actions/configure-kubectl-oke@v1.3.2
+        id: test-configure-kubectl-oke-action
+        with:
+          cluster: ocid1.cluster.oc1.iad.aaaaaaaatcre4eij6yz47n4it5hcffz4roz6kkhq3mqch4lseccwgkjei53a
 
-    - name: Run Kubectl
-      run: kubectl get nodes -A
+      - name: Run Kubectl
+        run: kubectl get nodes -A
 
