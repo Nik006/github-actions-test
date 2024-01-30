@@ -11,20 +11,20 @@ jobs:
       OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
       OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
       OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
-      
-
-    # steps:
+      CLUSTER_NAME: ${{ secrets.OKE_CLUSTER_NAME }}"
 
     steps:
 
-      - name: OCI CLI setup
+      - name: Get Cluster OCID
         uses: oracle-actions/run-oci-cli-command@v1.1.1 
-
-      - name: List OKE Clusters
+        id: find-cluster-ocid
+        with:
+          command: 'ce cluster list --compartment-id ${{ secrets.OCI_COMPARTMENT_ID }}'
+          query: "data[?name=='${{ secrets.OKE_CLUSTER_NAME }}'].id
+              
+      - name: Save Cluster OCID
         run: |
-          CLUSTER_NAME="${{ secrets.OKE_CLUSTER_NAME }}"
-          OCID=$(oci ce cluster list --compartment-id ${{ secrets.OCI_COMPARTMENT_ID }} --query "data[?name=='$CLUSTER_NAME'].id | [0]" --raw-output)
-          echo "::set-env name=OKE_CLUSTER_OCID::$OCID"
+          echo "OKE_CLUSTER_OCID=${{ steps.find-cluster-ocid.outputs.output }} | jq ." >> "$GITHUB_ENV"
 
       - name: Configure Kubectl
         uses: Nik006/configure-kubectl-oke@v1.3.2
@@ -32,13 +32,5 @@ jobs:
           cluster: ${{ env.OKE_CLUSTER_OCID }}
 
       - name: Run Kubectl
-        run: kubectl get nodes -A
-      # - name: Configure Kubectl
-      #   uses: Nik006/configure-kubectl-oke@v1.3.2
-      #   id: test-configure-kubectl-oke-action
-      #   with:
-      #     cluster: ocid1.cluster.oc1.iad.aaaaaaaatcre4eij6yz47n4it5hcffz4roz6kkhq3mqch4lseccwgkjei53a
-
-      # - name: Run Kubectl
-      #   run: kubectl get nodes -A
+        run: kubectl get nodes -A    
 
