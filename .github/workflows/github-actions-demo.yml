@@ -20,7 +20,7 @@ jobs:
         id: find-cluster-ocid
         with: 
           command: 'ce cluster list --compartment-id ${{ secrets.OCI_COMPARTMENT_ID }}'
-          query: 'data[?name=="github-actions-oke"].id'
+          query: "data[?name=='github-actions-oke'].id"
 
       - name: Save Cluster OCID
         run: |
